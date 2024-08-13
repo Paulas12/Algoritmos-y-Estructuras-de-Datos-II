@@ -1,0 +1,25 @@
+#-- Definiendo cadenas de caracteres definida en tiempo de compilación, es decir que sabemos la longitud de la misma.
+	#-- Servicio de terminaci�n del sistema operativo
+	.eqv EXIT 10 # esto es para que si comparto el codigo se entienda que el 10 es el exit 
+	
+	.data
+cad: 	.string "En un lab de la URJC"
+	.asciz "De cuyo numero no quiero acordarme"
+	
+	#-- Aqu� empieza nuestro programa para imprimir la cadena 
+	.text
+	# Lo primero que necesitamos es llamar al sistema operativo: al servicio PrintString, en este caso. 
+	# Para ello necesitamos la direccion del primer caracter (byte) de la cadena, por ello creamos una etiqueta (cad en este caso) 
+	# para la cadena a imprimir. 
+	
+	#-- Cargar en a0 la direccion de la cadena a imprimir 
+	la a0, cad # Cargamos la direccion en el registro a0 de cad (asi es para printstring). en el registro a0 la direccion donde comienza la cadena 
+	
+	#-- Llamar al servicio PRINT_STRING del sistema operativo
+	li a7, 4 # En el registro a7 el codigo del servicio que vamos a usar, en este caso el de printspring es el numero 4.
+	ecall
+	
+	#-- Terminar
+	# li a7, 10 #servicio de exit es el codigo 10
+	li a7, EXIT # como ya guard� en una variable, coloco la misma directamente p/q nuestro programa sea mas legible. Invoca al sist operativo
+	ecall #para terminar todos los progrmas 

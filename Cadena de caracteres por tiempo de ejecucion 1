@@ -1,0 +1,29 @@
+#-- Ejemplo de cadenas definidas en tiempo de ejecución
+#-- Pedir una cadena al usuario: la va a introducir por el taclado y la volvemos a imprimir
+
+	.data # Qué son las cadenas de caracteres? Datos
+	    
+# No sabemos la longitud ni las caracteristicas que tendrá nuestra cadena de caracteres, por ello solo podemos reservar un tamaño máximo con la directiva .space
+cad1:	.space 18 # longitud maxima de 18 bytes. Cadena definida en tiempo de ejecucion, no sabemos nada de ella 
+cad2:	.string "Nombre?: "  #Para pedirle que ingrese el nombre. Es una cadena definida en tiempo de compilacion
+	
+	.text
+	#-- Pedir el nombre al usuario
+	la a0, cad2
+	li a7, 4
+	ecall 
+	
+	#-- Llamar al sistema operativo para leer la cadena del ususario 
+	la a0, cad1
+	li a1, 18
+	li a7, 8
+	ecall
+	
+	#-- Imprimir su nombre
+	la a0, cad1
+	li a7, 4 
+	ecall
+	
+	#-- Terminar
+	li a7,10
+	ecall	
