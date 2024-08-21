@@ -1,0 +1,22 @@
+#-- Rellenando la memoria con los valores 1, 2, 3, 4, 5, ........ (bucle infinito)
+	.data
+inicio: 
+	
+	.text
+	#-- Punteros de acceso a las variables: se iniciliza (siempre necesitamos el un registro puntero)
+	la x5, inicio 
+	
+	#-- Inicializamos el registro contador
+	li x6, 0
+	
+bucle: 
+	#-- Incrementamos el contador
+	addi x6, x6, 1
+	
+	#-- Almacenar el contador en la posicion indicada por el puntero x5
+	sw x6, 0(x5) # Almacena el contador que está en x6 en la direccion que te diga el registro x5
+	
+	# Como queremos rellenar toda la memoria, todas las palabras consecutivas con esos valores infinitos
+	#-- Incrementamos el registro puntero
+	addi x5, x5, 4  # 4 bytes ya que queremos que pase a la siguiente 'palabra'
+	b bucle
